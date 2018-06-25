@@ -24,7 +24,7 @@ In summary, to train the model you need to modify two classes in ```surgery.py``
 1. ```SurgeryConfig``` This class contains the default configurations. Modify the attributes for your training, most importantly the ```NUM_CLASSES```.
 2. ```SurgeryDataset``` This class inherits from ```utils.Dataset``` which provides capability to train on new dataset without modifying the model. In this project I will demonstrate with a dataset labeled by VGG Image Annotation(VIA). If you are also trying to label a dataset for your own images, start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). 
 
-First of all, for training you need to add class in function ```load_VIA```
+2.1 First of all, for training you need to add class in function ```load_VIA```
 ```
 self.add_class("SourceName", ClassID, "ClassName")
 #For example:
