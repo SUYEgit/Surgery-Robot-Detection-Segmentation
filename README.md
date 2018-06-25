@@ -2,9 +2,9 @@
 
 This is a project for surgery robot target detection and segmentation based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
 
-![Instance Segmentation Sample](assets/1.png)
-![Instance Segmentation Sample2](assets/Picture 573.png)
-![Instance Segmentation Sample2](assets/Picture 790.png)
+![Instance Segmentation Sample](assets/center.png)
+![Instance Segmentation Sample2](assets/left.png)
+![Instance Segmentation Sample2](assets/right.png)
 
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
