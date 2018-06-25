@@ -4,10 +4,10 @@ This is a project for surgery robot target detection and segmentation based on i
 
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
-* Instruction and training code for the surgery robot dataset
-* Pre-trained weights on MS COCO and ImageNet
-* Jupyter notebooks to visualize the detection result
+* Instruction and training code for the surgery robot dataset.
+* Pre-trained weights on MS COCO and ImageNet.
 * Example of training on your own dataset, with emphasize on how to build and adapt codes to dataset with multiple classes.
+* Jupyter notebooks to visualize the detection result.
 
 # Video Demo
 ### [4K Video Demo](https://www.youtube.com/watch?v=OOT3UIXZztE) by Karol Majek.
