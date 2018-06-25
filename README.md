@@ -15,7 +15,8 @@ The model is trained based on pre-trained weights for MS COCO.
 ![Instance Segmentation Sample2](assets/right.png)
 
 # Video Demo
-
+### [4K Video Demo](https://www.youtube.com/watch?v=OOT3UIXZztE) by Karol Majek.
+[![Mask RCNN on 4K Video](assets/4k_video.gif)](https://www.youtube.com/watch?v=OOT3UIXZztE)
 
 # Training on Your own Dataset
 Pre-trained weights from MS COCO and ImageNet are provided for you to fine-tune over new dataset. Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
@@ -39,11 +40,28 @@ for i, p in enumerate(class_names):
       class_ids[i] = 1
       ......
 ```
-3. Now you should be able to start training on your own dataset! Training parapeters are mainly included in function ```train``` in ```surgery.py```.
+3. The data directories for this project are as following. Make sure you include corresponding annotations(.json) in correct directory.
 
-# Prediction and Visualization
-3. For visualization: ```detect_and_color_splash``` add class_names
-4. dataset:  surgery: train val predict
+data
+├── surgery
+│   └── train
+│       ├── pic1.jpg
+│       ├── pic2.jpg
+│       ├── ...
+│       └── via_region_data.json
+│   └── val
+│       ├── pic3.jpg
+│       ├── pic4.jpg
+│       ├── ...
+│       └── via_region_data.json
+│   └── predict
+│       ├── pic5.jpg
+│       ├── pic6.jpg
+│       ├── ...
+│       └── via_region_data.json
+
+
+Now you should be able to start training on your own dataset! Training parapeters are mainly included in function ```train``` in ```surgery.py```.
 ```
 #Train a new model starting from pre-trained COCO weights
 python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=coco  
@@ -56,6 +74,13 @@ python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=im
 python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=last
 ```
 
+# Prediction, Visualization, Evaluation
+Two functions ```detect``` and ```detect_and_color_splash``` in ```surgery.py``` for detection are provides in this project.
+To use ```detect_and_color_splash```, you need to add class_names according to your dataset
+```
+class_names = ['BG', 'arm', 'ring']
+```
+You can make prediction on a specific image, images in a specific directory or even a video, by
 ```
 #Detect and color splash on a single image with the last model you trained.
 #This will find the last trained weights in the model directory.
@@ -67,33 +92,10 @@ python surgery.py detect --weights=last --dataset=/home/.../mask_rcnn/data/surge
 #Detect and color splash on a video with a specific pre-trained weights of yours.
 python sugery.py splash --weights=/home/.../logs/mask_rcnn_surgery_0030.h5  --video=/home/simon/Videos/Center.wmv
 ```
+* [prediction.ipynb](prediction.ipynb) provides step-by-step prediction and visualization on your own dataset. You can also roughly evaluate the model with metrics of overall accuracy and precision.
 
-
-The training schedule, learning rate, and other parameters should be set in the `train` function in `surgery.py`.
-
-
-# Training on Your Own Dataset
-
-Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
-
-In summary, to train the model on your own dataset you'll need to extend two classes:
-
-```Config```
-This class contains the default configuration. Subclass it and modify the attributes you need to change.
-
-```Dataset```
-This class provides a consistent way to work with any dataset. 
-It allows you to use new datasets for training without having to change 
-the code of the model. It also supports loading multiple datasets at the
-same time, which is useful if the objects you want to detect are not 
-all available in one dataset. 
-
-See examples in `samples/shapes/train_shapes.ipynb`, `samples/coco/coco.py`, `samples/balloon/balloon.py`, and `samples/nucleus/nucleus.py`.
-
-
-## Requirements
-Python 3.4, TensorFlow 1.3, Keras 2.0.8 and other common packages listed in `requirements.txt`.
-
+## Configurations
+Python 3.6.4, TensorFlow 1.7.0, Keras 2.1.5, CUDA 9.0, cudnn 7 and other common packages listed in `requirements.txt`.
 
 ## Installation
 1. Install dependencies
@@ -105,33 +107,5 @@ Python 3.4, TensorFlow 1.3, Keras 2.0.8 and other common packages listed in `req
     ```bash
     python3 setup.py install
     ``` 
-3. Download pre-trained COCO weights (mask_rcnn_coco.h5) from the [releases page](https://github.com/matterport/Mask_RCNN/releases).
-4. (Optional) To train or test on MS COCO install `pycocotools` from one of these repos. They are forks of the original pycocotools with fixes for Python3 and Windows (the official repo doesn't seem to be active anymore).
-
-    * Linux: https://github.com/waleedka/coco
-    * Windows: https://github.com/philferriere/cocoapi.
-    You must have the Visual C++ 2015 build tools on your path (see the repo for additional details)
-
-# Projects Using this Model
-If you extend this model to other datasets or build projects that use it, we'd love to hear from you.
-
-### [4K Video Demo](https://www.youtube.com/watch?v=OOT3UIXZztE) by Karol Majek.
-[![Mask RCNN on 4K Video](assets/4k_video.gif)](https://www.youtube.com/watch?v=OOT3UIXZztE)
-
-### [Images to OSM](https://github.com/jremillard/images-to-osm): Improve OpenStreetMap by adding baseball, soccer, tennis, football, and basketball fields.
-
-![Identify sport fields in satellite images](assets/images_to_osm.png)
-
-### [Splash of Color](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). A blog post explaining how to train this model from scratch and use it to implement a color splash effect.
-![Balloon Color Splash](assets/balloon_color_splash.gif)
-
-
-### [Segmenting Nuclei in Microscopy Images](samples/nucleus). Built for the [2018 Data Science Bowl](https://www.kaggle.com/c/data-science-bowl-2018)
-Code is in the `samples/nucleus` directory.
-
-![Nucleus Segmentation](assets/nucleus_segmentation.png)
-
-### [Mapping Challenge](https://github.com/crowdAI/crowdai-mapping-challenge-mask-rcnn): Convert satellite imagery to maps for use by humanitarian organisations.
-![Mapping Challenge](assets/mapping_challenge.png)
-
+3. The code will automatically download pretrained COCO weights when you select training with COCO weights. But in case it somehow doesn't work, download pre-trained COCO weights (mask_rcnn_coco.h5) from the [releases page](https://github.com/matterport/Mask_RCNN/releases).
 
