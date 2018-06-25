@@ -1,18 +1,13 @@
 # Mask R-CNN for Object Detection and Segmentation
 
 This is a project for surgery robot target detection and segmentation based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
-![Instance Segmentation Sample](assets/center.png)
+
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
 * Instruction and training code for the surgery robot dataset
 * Pre-trained weights on MS COCO and ImageNet
 * Jupyter notebooks to visualize the detection result
 * Example of training on your own dataset, with emphasize on how to build and adapt codes to dataset with multiple classes.
-
-# Instance Segmentation Samples on Robot Dataset
-The model is trained based on pre-trained weights for MS COCO. 
-![Instance Segmentation Sample2](assets/left.png)
-![Instance Segmentation Sample2](assets/right.png)
 
 # Video Demo
 ### [4K Video Demo](https://www.youtube.com/watch?v=OOT3UIXZztE) by Karol Majek.
@@ -76,6 +71,12 @@ python surgery.py detect --weights=last --dataset=/home/.../mask_rcnn/data/surge
 python sugery.py splash --weights=/home/.../logs/mask_rcnn_surgery_0030.h5  --video=/home/simon/Videos/Center.wmv
 ```
 * [prediction.ipynb](prediction.ipynb) provides step-by-step prediction and visualization on your own dataset. You can also roughly evaluate the model with metrics of overall accuracy and precision.
+
+# Instance Segmentation Samples on Robot Dataset
+The model is trained based on pre-trained weights for MS COCO. 
+![Instance Segmentation Sample2](assets/left.png)
+![Instance Segmentation Sample](assets/center.png)
+![Instance Segmentation Sample2](assets/right.png)
 
 # Configurations
 Python 3.6.4, TensorFlow 1.7.0, Keras 2.1.5, CUDA 9.0, cudnn 7 and other common packages listed in `requirements.txt`.
