@@ -23,14 +23,25 @@ Pre-trained weights from MS COCO and ImageNet are provided for you to fine-tune 
 In summary, to train the model you need to modify two classes in ```surgery.py```:
 1. ```SurgeryConfig``` This class contains the default configurations. Modify the attributes for your training, most importantly the ```NUM_CLASSES```.
 2. ```SurgeryDataset``` This class inherits from ```utils.Dataset``` which provides capability to train on new dataset without modifying the model. In this project I will demonstrate with a dataset labeled by VGG Image Annotation(VIA). If you are also trying to label a dataset for your own images, start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). 
-2.1. First of all, for training you need to add class in function ```load_VIA```
+First of all, for training you need to add class in function ```load_VIA```
 ```
 self.add_class("SourceName", ClassID, "ClassName")
 #For example:
 self.add_class("surgery", 1, "arm")  #means add a class named "arm" with class_id "1" from source "surgery"
+......
 ```
-dfasfasdf
-3. Training parapeters are mainly included in function ```train``` in ```surgery.py```.
+Then extend function ```load_mask``` for reading different class names from annotations
+For example, if you assign name "a" to class "arm" when you are labelling, according to its class_id defined in ```load_VIA```
+```
+class_ids = np.zeros([len(info["polygons"])])
+for i, p in enumerate(class_names):
+   if p['name'] == 'a':
+      class_ids[i] = 1
+      ......
+```
+3. Now you should be able to start training on your own dataset! Training parapeters are mainly included in function ```train``` in ```surgery.py```.
+
+# Prediction and Visualization
 3. For visualization: ```detect_and_color_splash``` add class_names
 4. dataset:  surgery: train val predict
 ```
