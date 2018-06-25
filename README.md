@@ -79,17 +79,17 @@ The model is trained based on pre-trained weights for MS COCO.
 ![Instance Segmentation Sample2](assets/right.png)
 
 # Configurations
-Python 3.6.4, TensorFlow 1.7.0, Keras 2.1.5, CUDA 9.0, cudnn 7 and other common packages listed in `requirements.txt`.
+Anaconda + Python 3.6.4, TensorFlow 1.7.0, Keras 2.1.5, CUDA 9.0, cudnn 7 and other common packages listed in `requirements.txt`.
 
 # Installation
 1. Install dependencies
    ```bash
-   pip3 install -r requirements.txt
+   pip install -r requirements.txt
    ```
 2. Clone this repository
 3. Run setup from the repository root directory
     ```bash
-    python3 setup.py install
+    python setup.py install
     ``` 
 3. The code will automatically download pretrained COCO weights when you select training with COCO weights. But in case it somehow doesn't work, download pre-trained COCO weights (mask_rcnn_coco.h5) from the [releases page](https://github.com/matterport/Mask_RCNN/releases).
 
