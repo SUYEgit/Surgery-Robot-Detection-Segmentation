@@ -1,28 +1,22 @@
 # Mask R-CNN for Object Detection and Segmentation
 
-This is an implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) on surgery robot of NUS Control & Robotics lab on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone.
+This is a project for surgery robot target detection and segmentation based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
 
 ![Instance Segmentation Sample](assets/Picture 415.png)
+![Instance Segmentation Sample2](assets/Picture 573.png)
+![Instance Segmentation Sample2](assets/Picture 790.png)
 
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
-* Training code for MS COCO
-* Pre-trained weights for MS COCO
-* Jupyter notebooks to visualize the detection pipeline at every step
-* ParallelModel class for multi-GPU training
-* Evaluation on MS COCO metrics (AP)
+* Instruction and training code for the surgery robot dataset
+* Pre-trained weights on MS COCO and ImageNet
+* Jupyter notebooks to visualize the detection result
 * Example of training on your own dataset
 
 
-
-
-
 # Training on Your own Dataset
-We're providing pre-trained weights for MS COCO to make it easier to start. You can
-use those weights as a starting point to train your own variation on the network.
-Training and evaluation code is in `samples/coco/coco.py`. You can import this
-module in Jupyter notebook (see the provided notebooks for examples) or you
-can run it directly from the command line as such:
+Pre-trained weights from MS COCO and IMageNet are provided for you to fine-tune over new dataset. Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
+
 
 ```
 #Train a new model starting from pre-trained COCO weights
