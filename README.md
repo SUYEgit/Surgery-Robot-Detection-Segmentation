@@ -43,12 +43,19 @@ for i, p in enumerate(class_names):
 3. The data directories for this project are as following. Make sure you include corresponding annotations(.json) in correct directory.
 
 data
+
 ├── surgery
+
 │   └── train
+
 │       ├── pic1.jpg
+
 │       ├── pic2.jpg
+
 │       ├── ...
+
 │       └── via_region_data.json
+
 │   └── val
 │       ├── pic3.jpg
 │       ├── pic4.jpg
@@ -94,10 +101,10 @@ python sugery.py splash --weights=/home/.../logs/mask_rcnn_surgery_0030.h5  --vi
 ```
 * [prediction.ipynb](prediction.ipynb) provides step-by-step prediction and visualization on your own dataset. You can also roughly evaluate the model with metrics of overall accuracy and precision.
 
-## Configurations
+# Configurations
 Python 3.6.4, TensorFlow 1.7.0, Keras 2.1.5, CUDA 9.0, cudnn 7 and other common packages listed in `requirements.txt`.
 
-## Installation
+# Installation
 1. Install dependencies
    ```bash
    pip3 install -r requirements.txt
