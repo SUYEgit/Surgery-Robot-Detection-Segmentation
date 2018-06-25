@@ -1,18 +1,16 @@
 # Mask R-CNN for Object Detection and Segmentation
 
 This is a project for surgery robot target detection and segmentation based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
-
-
+![Instance Segmentation Sample](assets/center.png)
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
 * Instruction and training code for the surgery robot dataset
 * Pre-trained weights on MS COCO and ImageNet
 * Jupyter notebooks to visualize the detection result
-* Example of training on your own dataset
+* Example of training on your own dataset, with emphasize on how to build and adapt codes to dataset with multiple classes.
 
 # Instance Segmentation Samples on Robot Dataset
 The model is trained based on pre-trained weights for MS COCO. 
-![Instance Segmentation Sample](assets/center.png)
 ![Instance Segmentation Sample2](assets/left.png)
 ![Instance Segmentation Sample2](assets/right.png)
 
@@ -22,7 +20,19 @@ The model is trained based on pre-trained weights for MS COCO.
 # Training on Your own Dataset
 Pre-trained weights from MS COCO and ImageNet are provided for you to fine-tune over new dataset. Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
 
+In summary, to train the model you need to modify two classes in ```surgery.py```:
+1. ```SurgeryConfig``` This class contains the default configurations. Modify the attributes for your training, most importantly the ```NUM_CLASSES```.
+2. ```SurgeryDataset``` This class inherits from ```utils.Dataset``` which provides capability to train on new dataset without modifying the model. In this project I will demonstrate with a dataset labeled by VGG Image Annotation(VIA). If you are also trying to label a dataset for your own images, start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). 
 
+First of all, for training you need to add class in function ```load_VIA```
+```
+self.add_class("SourceName", ClassID, "ClassName")
+#For example:
+self.add_class("surgery", 1, "arm")  #means add a class named "arm" with class_id "1" from source "surgery"
+```
+3. Training parapeters are mainly included in function ```train``` in ```surgery.py```.
+3. For visualization: ```detect_and_color_splash``` add class_names
+4. dataset:  surgery: train val predict
 ```
 #Train a new model starting from pre-trained COCO weights
 python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=coco  
