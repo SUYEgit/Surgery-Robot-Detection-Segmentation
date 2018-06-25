@@ -41,24 +41,6 @@ for i, p in enumerate(class_names):
       ......
 ```
 3. The data directories for this project are as following. Make sure you include corresponding annotations(.json) in correct directory.
-
-data
-├── surgery
-│   └── train
-│       ├── pic1.jpg
-│       ├── pic2.jpg
-│       ├── ...
-│       └── via_region_data.json
-│   └── val
-│       ├── pic3.jpg
-│       ├── pic4.jpg
-│       ├── ...
-│       └── via_region_data.json
-│   └── predict
-│       ├── pic5.jpg
-│       ├── pic6.jpg
-│       ├── ...
-│       └── via_region_data.json
 ![Example of data directory](assets/dir.png)
 
 Now you should be able to start training on your own dataset! Training parapeters are mainly included in function ```train``` in ```surgery.py```.
