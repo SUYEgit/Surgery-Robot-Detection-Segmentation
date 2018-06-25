@@ -2,9 +2,6 @@
 
 This is a project for surgery robot target detection and segmentation based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
 
-![Instance Segmentation Sample](assets/center.png)
-![Instance Segmentation Sample2](assets/left.png)
-![Instance Segmentation Sample2](assets/right.png)
 
 The repository includes:
 * Source code of Mask R-CNN built on FPN and ResNet101.
@@ -13,9 +10,17 @@ The repository includes:
 * Jupyter notebooks to visualize the detection result
 * Example of training on your own dataset
 
+# Instance Segmentation Samples on Robot Dataset
+The model is trained based on pre-trained weights for MS COCO. 
+![Instance Segmentation Sample](assets/center.png)
+![Instance Segmentation Sample2](assets/left.png)
+![Instance Segmentation Sample2](assets/right.png)
+
+# Video Demo
+
 
 # Training on Your own Dataset
-Pre-trained weights from MS COCO and IMageNet are provided for you to fine-tune over new dataset. Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
+Pre-trained weights from MS COCO and ImageNet are provided for you to fine-tune over new dataset. Start by reading this [blog post about the balloon color splash sample](https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46). It covers the process starting from annotating images to training to using the results in a sample application.
 
 
 ```
@@ -28,7 +33,9 @@ python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=im
 # Continue training the last model you trained. This will find
 # the last trained weights in the model directory.
 python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=last
+```
 
+```
 #Detect and color splash on a single image with the last model you trained.
 #This will find the last trained weights in the model directory.
 python surgery.py splash --weights=last --image=/home/...../*.jpg
@@ -38,16 +45,8 @@ python surgery.py detect --weights=last --dataset=/home/.../mask_rcnn/data/surge
 
 #Detect and color splash on a video with a specific pre-trained weights of yours.
 python sugery.py splash --weights=/home/.../logs/mask_rcnn_surgery_0030.h5  --video=/home/simon/Videos/Center.wmv
-
-
-
 ```
 
-You can also run the COCO evaluation code with:
-```
-# Run COCO evaluation on the last trained model
-python3 samples/coco/coco.py evaluate --dataset=/path/to/coco/ --model=last
-```
 
 The training schedule, learning rate, and other parameters should be set in the `train` function in `surgery.py`.
 
