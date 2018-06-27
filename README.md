@@ -53,19 +53,16 @@ python surgery.py train --dataset=/home/.../mask_rcnn/data/surgery/ --weights=la
 ```
 
 # Prediction, Visualization, Evaluation
-Two functions ```detect``` and ```detect_and_color_splash``` in ```surgery.py``` for detection are provides in this project.
+Function```detect_and_color_splash``` in ```surgery.py``` are provided in this project.
 To use ```detect_and_color_splash```, you need to add class_names according to your dataset
 ```
 class_names = ['BG', 'arm', 'ring']
 ```
 You can make prediction on a specific image, images in a specific directory or even a video, by
 ```
-#Detect and color splash on a single image with the last model you trained.
+#Detect and color splash on a image with the last model you trained.
 #This will find the last trained weights in the model directory.
 python surgery.py splash --weights=last --image=/home/...../*.jpg
-
-#Detect and color splash on images in a directory
-python surgery.py detect --weights=last --dataset=/home/.../mask_rcnn/data/surgery/ --subset=predict
 
 #Detect and color splash on a video with a specific pre-trained weights of yours.
 python sugery.py splash --weights=/home/.../logs/mask_rcnn_surgery_0030.h5  --video=/home/simon/Videos/Center.wmv
