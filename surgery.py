@@ -488,11 +488,3 @@ if __name__ == '__main__':
         print("'{}' is not recognized. "
               "Use 'train' or 'splash'".format(args.command))
 
-
-# dataset_dir = '/home/simon/deeplearning/mask_rcnn/data'
-# dataset_train = SurgeryDataset()
-# dataset_train.VIA(dataset_dir, "train")
-# # dataset_train.prepare()
-# a, b = dataset_train.load_mask(130)
-# print(a.shape, b.shape)
-# print(b)
