@@ -9,8 +9,7 @@ The repository includes:
 * Example of training on your own dataset, with emphasize on how to build and adapt codes to dataset with multiple classes.
 * Jupyter notebooks to visualize the detection result.
 
-# Video Demo
-### [4K Video Demo](https://www.youtube.com/watch?v=OOT3UIXZztE) by Karol Majek.
+# Video Demo on Our Surgery Robot
 [![Mask RCNN on 4K Video](assets/video.gif)]
 
 # Training on Your own Dataset
