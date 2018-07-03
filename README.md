@@ -1,6 +1,6 @@
 # Mask R-CNN for Surgery Robot 
 
-This is a project of NUS control & mechatronics lab of for surgery robot target detection and segmentation under guidance of Prof. Chui Chee Kong.
+This is a project of NUS Control & Mechatronics Lab for surgical robot target detection and segmentation under guidance of Prof. Chui Chee Kong. Information on the research group can be found in http://blog.nus.edu.sg/mpecck/.
 
 The codes are based on implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870) by (https://github.com/matterport/Mask_RCNN) on Python 3, Keras, and TensorFlow. The model generates bounding boxes and segmentation masks for each instance of an object in the image. It's based on Feature Pyramid Network (FPN) and a ResNet101 backbone. 
 
