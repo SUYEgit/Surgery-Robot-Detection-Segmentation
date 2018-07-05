@@ -1,10 +1,12 @@
 """
 Mask R-CNN
 Train on the surgery robot dataset.
-
-Copyright (c) 2018 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
-Written by Waleed Abdulla
+
+This is a project of NUS Control & Mechatronics Lab for surgical robot target detection and segmentation 
+under guidance of Prof. Chui Chee Kong. 
+The project details can bee seen on github: https://github.com/SUYEgit/Surgery-Robot-Detection-Segmentation
+Information on the research group can be found in http://blog.nus.edu.sg/mpecck/.
 
 ------------------------------------------------------------
 
