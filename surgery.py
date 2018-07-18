@@ -1,12 +1,10 @@
 """
 Mask R-CNN
 Train on the surgery robot dataset.
-Licensed under the MIT License (see LICENSE for details)
 
-This is a project of NUS Control & Mechatronics Lab for surgical robot target detection and segmentation 
-under guidance of Prof. Chui Chee Kong. 
-The project details can bee seen on github: https://github.com/SUYEgit/Surgery-Robot-Detection-Segmentation
-Information on the research group can be found in http://blog.nus.edu.sg/mpecck/.
+Copyright (c) 2018 Matterport, Inc.
+Licensed under the MIT License (see LICENSE for details)
+Written by Waleed Abdulla
 
 ------------------------------------------------------------
 
@@ -84,8 +82,7 @@ class SurgeryConfig(Config):
 ############################################################
 
 class SurgeryDataset(utils.Dataset):
-
-    def load_VIA(self, dataset_dir, subset):
+    def load_VIA(self, dataset_dir, subset, hc=False):
         """Load the surgery dataset from VIA.
         dataset_dir: Root directory of the dataset.
         subset: Subset to load: train or val or predict
@@ -93,6 +90,11 @@ class SurgeryDataset(utils.Dataset):
         # Add classes. We have only one class to add.
         self.add_class("surgery", 1, "arm")
         self.add_class("surgery", 2, "ring")
+        if hc is True:
+            for i in range(1,14):
+                self.add_class("surgery", i, "{}".format(i))
+            self.add_class("surgery", 14, "arm")
+
         # Train or validation dataset?
         assert subset in ["train", "val", "predict"]
         dataset_dir = os.path.join(dataset_dir, subset)
@@ -186,8 +188,46 @@ class SurgeryDataset(utils.Dataset):
         else:
             super(self.__class__, self).image_reference(image_id)
 
+    def load_mask_hc(self, image_id):
+        """Generate instance masks for an image.
+       Returns:
+        masks: A bool array of shape [height, width, instance count] with
+            one mask per instance.
+        class_ids: a 1D array of class IDs of the instance masks.
+        """
+        # If not a surgery dataset image, delegate to parent class.
+        image_info = self.image_info[image_id]
+        if image_info["source"] != "surgery":
+            return super(self.__class__, self).load_mask(image_id)
 
-def train(model):
+        # Convert polygons to a bitmap mask of shape
+        # [height, width, instance_count]
+        info = self.image_info[image_id]
+        #"name" is the attributes name decided when labeling, etc. 'region_attributes': {name:'a'}
+        class_names = info["names"]
+        mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
+                        dtype=np.uint8)
+        for i, p in enumerate(info["polygons"]):
+            # Get indexes of pixels inside the polygon and set them to 1
+            rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
+            mask[rr, cc, i] = 1
+        # Assign class_ids by reading class_names
+        class_ids = np.zeros([len(info["polygons"])])
+        # In the surgery dataset, pictures are labeled with name 'a' and 'r' representing arm and ring.
+        for i, p in enumerate(class_names):
+            if p['name'] == 'arm':
+                class_ids[i] = 14
+            elif p['name'] == 'error':
+                pass
+            else:
+                class_ids[i] = int(p['name'])
+            #assert code here to extend to other labels
+        class_ids = class_ids.astype(int)
+        # Return mask, and array of class IDs of each instance. Since we have
+        # one class ID only, we return an array of 1s
+        return mask.astype(np.bool), class_ids
+
+def train(model, *dic):
     """Train the model."""
     # Training dataset.
     dataset_train = SurgeryDataset()
@@ -292,6 +332,7 @@ def detect_and_color_splash(model, image_path=None, video_path=None, out_dir='')
                 count += 1
         vwriter.release()
     print("Saved to ", file_name)
+
 ############################################################
 #  RLE Encoding
 ############################################################
@@ -490,3 +531,11 @@ if __name__ == '__main__':
         print("'{}' is not recognized. "
               "Use 'train' or 'splash'".format(args.command))
 
+
+# dataset_dir = '/home/simon/deeplearning/mask_rcnn/data'
+# dataset_train = SurgeryDataset()
+# dataset_train.VIA(dataset_dir, "train")
+# # dataset_train.prepare()
+# a, b = dataset_train.load_mask(130)
+# print(a.shape, b.shape)
+# print(b)
