@@ -43,12 +43,9 @@ def split(annotations, *param, random_shuffle=True):
 if __name__ == "__main__":
     dataset_dir = "/home/simon/deeplearning/git_surgery/data/surgery/train"
     annotations = json.load(open(os.path.join(dataset_dir, "via_region_data.json")))
-
+    # if you want to specify train, val, test set with a dict, else just leave split_map as a empty dic
     split_map = {"train":["Picture 390.jpg"], "val":["Picture 392.jpg"], "test":[]}
     if len(split_map) == 0:
         train_ann, val_ann, test_ann = split(annotations)
     else:
-        # if you want to specify train, val, test set with a dict
-        # {"train":[Picture
         train_ann, val_ann, test_ann = split(annotations, split_map, random_shuffle=False)
-    print(len(train_ann), len(val_ann), len(test_ann))
