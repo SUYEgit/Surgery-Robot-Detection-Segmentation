@@ -158,7 +158,6 @@ class SurgeryDataset(utils.Dataset):
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
         info = self.image_info[image_id]
-        #"name" is the attributes name decided when labeling, etc. 'region_attributes': {name:'a'}
         class_names = info["names"]
         mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
                         dtype=np.uint8)
@@ -170,6 +169,7 @@ class SurgeryDataset(utils.Dataset):
         class_ids = np.zeros([len(info["polygons"])])
         # In the surgery dataset, pictures are labeled with name 'a' and 'r' representing arm and ring.
         for i, p in enumerate(class_names):
+        #"name" is the attributes name decided when labeling, etc. 'region_attributes': {name:'a'}
             if p['name'] == 'a':
                 class_ids[i] = 1
             elif p['name'] == 'r':
